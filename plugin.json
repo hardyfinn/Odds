@@ -1,0 +1,26 @@
+{
+  "slug": "Odds",
+  "name": "Odds",
+  "version": "2.0.0",
+  "license": "GPL-3.0-or-later",
+  "brand": "Haer",
+  "author": "Haer",
+  "authorEmail": "",
+  "authorUrl": "",
+  "pluginUrl": "",
+  "manualUrl": "",
+  "sourceUrl": "https://github.com/hardyfinn/Odds",
+  "donateUrl": "",
+  "changelogUrl": "",
+  "modules": [
+    {
+      "slug": "MinimalNation",
+      "name": "Minimal Nation",
+      "description": "One big knob, one input, one output. The signal passes straight through and the knob does nothing. It just looks good.",
+      "tags": [
+        "Utility",
+        "Visual"
+      ]
+    }
+  ]
+}
