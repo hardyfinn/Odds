@@ -1,7 +1,7 @@
 {
   "slug": "Odds",
   "name": "Odds",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "license": "MIT",
   "brand": "Haer",
   "author": "Haer",
@@ -18,6 +18,16 @@
       "name": "Minimal Nation",
       "description": "One big knob, one input, one output. The signal passes straight through and the knob does nothing. It just looks good.",
       "tags": [
+        "Utility",
+        "Visual"
+      ]
+    },
+    {
+      "slug": "Poltergeist",
+      "name": "Poltergeist",
+      "description": "A ghost that moves your real cables: on each HAUNT it swaps two cables, moves one to another socket or makes one vanish for a while, only inside a fence of modules to its right. EXORCISE puts everything back, and every move can be undone with Ctrl+Z.",
+      "tags": [
+        "Random",
         "Utility",
         "Visual"
       ]
