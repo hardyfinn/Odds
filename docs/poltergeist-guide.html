@@ -1,0 +1,76 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Poltergeist Guide</title>
+<style>
+@page { size: A4; margin: 16mm 16mm; }
+body { font-family: Inter, "Helvetica Neue", Arial, sans-serif; color: #1B1A24; font-size: 10.5pt; line-height: 1.45; }
+h1 { font-size: 26pt; margin: 0 0 2mm; letter-spacing: 0.04em; }
+h2 { font-size: 14pt; margin: 7mm 0 2mm; border-bottom: 2px solid #9CFFD6; padding-bottom: 1mm; }
+h3 { font-size: 11pt; margin: 4mm 0 1mm; }
+.sub { color: #5E5A74; font-size: 12pt; margin-bottom: 6mm; }
+.top { display: flex; gap: 8mm; }
+.top img { width: 62mm; border-radius: 2mm; }
+table { border-collapse: collapse; width: 100%; margin: 2mm 0; }
+td, th { border-bottom: 1px solid #ddd; padding: 1.4mm 2mm; vertical-align: top; text-align: left; }
+th { background: #F2EFFA; }
+.note { background: #EFFFF8; border-left: 3px solid #3CC79A; padding: 2mm 3mm; margin: 3mm 0; }
+.warn { background: #FFF1F3; border-left: 3px solid #FF5A6E; padding: 2mm 3mm; margin: 3mm 0; }
+b.k { font-family: "DejaVu Sans Mono", monospace; font-weight: 700; }
+.pb { page-break-before: always; }
+</style></head><body>
+<h1>POLTERGEIST</h1>
+<div class="sub">A ghost that lives in your rack and moves real cables. Odds 2.1.0, 14 HP, by Hær.</div>
+<div class="top">
+<img src="panel-preview.png">
+<div>
+<p>Poltergeist does not make sound. It changes the <i>patch</i>. Every time it is haunted it reaches out of its panel and moves one of the real cables on your screen: it swaps where two cables go, moves one end of a cable to another socket, or pulls a cable out for a while. You see the ghost fly across the rack to the cable it touched.</p>
+<p>It is a joke module, but it is also a serious way out of loop fatigue: instead of changing a knob, it changes the wiring, so a loop can turn into a different patch every few bars. When you like what it found, stop the haunting and keep it. When you don't, press <b class="k">EXORCISE</b> and everything goes back.</p>
+<div class="note"><b>Safe by design.</b> The ghost only works inside its <b>fence</b>: the modules directly to its right. It only moves cables whose both ends are inside the fence, never touches VCV's own Audio or MIDI modules, and never pulls a cable while you are dragging one.</div>
+</div></div>
+
+<h2>The fence</h2>
+<p><b class="k">FENCE</b> (1 to 16) sets how many modules to the right of Poltergeist, on the same row, the ghost may touch. Those modules get a faint mint outline on the rack so you can see the haunted area. Turn the knob and the outline lights up brightly for a couple of seconds.</p>
+<p>A cable going <i>out</i> of the fence (to your mixer, to an Audio module, to anything left of Poltergeist or further right) is never touched. So the simplest way to work is: put Poltergeist at the left of a group of modules, and send that group's final output to a mixer outside the fence.</p>
+
+<h2>Controls</h2>
+<table>
+<tr><th>Control</th><th>What it does</th></tr>
+<tr><td><b class="k">CHANCE</b> + CV</td><td>Chance that a trigger at the HAUNT input does anything (0 to 100%). The CV input adds 0-10 V to the knob. The HAUNT button ignores chance.</td></tr>
+<tr><td><b class="k">FENCE</b></td><td>How many modules to the right the ghost may touch (1-16).</td></tr>
+<tr><td><b class="k">SWAP</b></td><td>Weight for swapping: two cables exchange their destinations. LFO→cutoff and VCO→VCF in becomes LFO→VCF in and VCO→cutoff. The number of cables stays the same.</td></tr>
+<tr><td><b class="k">WANDER</b></td><td>Weight for wandering: one end of one cable moves. Either the plug end moves to a free input in the fence, or the source end moves to another output ("crossed over").</td></tr>
+<tr><td><b class="k">VANISH</b></td><td>Weight for vanishing: a cable is pulled out and comes back after RETURN.</td></tr>
+<tr><td><b class="k">RETURN</b></td><td>How long a vanished cable stays away: 0.1 s to 20 s. Fully clockwise = never (until you exorcise). Short values give drop-outs and stutters, long ones give whole sections without that cable.</td></tr>
+<tr><td><b class="k">HAUNT</b> button + input</td><td>One piece of mischief per trigger (at most one per screen frame; up to 4 queue up).</td></tr>
+<tr><td><b class="k">EXORCISE</b> button + input</td><td>Undo everything the ghost did, newest first. Cables you have moved yourself since are left alone.</td></tr>
+<tr><td><b class="k">MISCHIEF</b> out</td><td>A trigger each time a cable actually moves. Use it to fire a fill, a crash, or to reset a sequencer.</td></tr>
+<tr><td><b class="k">HAUNTED</b> out</td><td>1 V for every mischief not yet undone, up to 10 V. The patch's "distance from home" as CV.</td></tr>
+</table>
+<p>The screen shows what the ghost just did and which ports it touched, plus the fence size, how many cables are inside it, and how many changes are still haunted. If it says <b>BORED</b> there are no cables inside the fence; <b>HESITATED</b> means it found nothing it was allowed to move.</p>
+
+<h3>Right-click menu</h3>
+<ul>
+<li><b>Exorcise now.</b></li>
+<li><b>Allow patching a module into itself</b> (off by default): self-patching can make wild feedback, so it is opt-in.</li>
+<li><b>Each mischief is a Ctrl+Z step</b> (on by default). Turn it off if a fast clock fills your undo history.</li>
+<li><b>Show fence</b>: always, only while turning FENCE, or never.</li>
+</ul>
+
+<h2 class="pb">Three ways to use it</h2>
+<h3>1. The slow rewire (Autechre-style drift)</h3>
+<p>Clock divider: one trigger every 8 or 16 bars into HAUNT. CHANCE 50%, SWAP high, WANDER low, VANISH off. Fence round a small voice: two oscillators, a filter, two LFOs and an envelope. The patch gradually rewires itself; HAUNTED rises as it drifts away from home. Patch HAUNTED into a mixer send so the reverb grows as the patch gets stranger, then EXORCISE on the last bar of the section to snap home.</p>
+<h3>2. Drop-outs</h3>
+<p>16th-note clock into HAUNT, CHANCE around 10%, VANISH only, RETURN at 0.2-0.5 s. Fence round a drum group (each drum's trigger cable inside the fence, the drum outputs going to a mixer outside). Hits and modulations disappear for a moment and return, like a mute performer with a mind of its own. Turn "Each mischief is a Ctrl+Z step" off for this one.</p>
+<h3>3. The arrangement ghost</h3>
+<p>Long Form or any section clock into HAUNT with CHANCE 100%: every new section the ghost makes one change, so each section is the previous one with one wire moved. MISCHIEF into a cymbal or a riser marks the change. EXORCISE at the start of the final section brings back the opening patch for the outro.</p>
+
+<h2>Good to know</h2>
+<ul>
+<li>The ghost's log (what it changed) is saved with the patch, so EXORCISE still works after you reopen it. A cable that was vanished when you saved comes back one second after loading, unless RETURN was set to never.</li>
+<li>It remembers the last 64 changes. Older ones can't be exorcised (Ctrl+Z still works for them).</li>
+<li>Deleting Poltergeist leaves the patch as it is; exorcise first if you want the original back.</li>
+<li>When the module is bypassed it does nothing and drops queued haunts.</li>
+<li>The ghost and the fence are drawn in Rack's light layer, so they still glow with the room lights turned down.</li>
+</ul>
+<div class="warn"><b>Volume.</b> Moving cables can suddenly patch an audio-rate signal into a CV input or an LFO into an audio path. Keep a limiter after the fenced group while you explore.</div>
+<p style="color:#888;font-size:9pt;margin-top:8mm">Odds is MIT licensed. Source: github.com/hardyfinn/Odds.</p>
+</body></html>
