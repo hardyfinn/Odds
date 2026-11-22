@@ -17,3 +17,7 @@ Every push builds the plugin for Apple Silicon Macs in GitHub Actions. Pushes to
 
 Panel and knob art: `pip install fonttools && python3 res/make_panel.py`.
 Layout check without Rack: `python3 tools/preview.py preview.png`.
+
+## Licence
+
+MIT (see `LICENSE.txt`): you're free to use, change, port (VST/CLAP, other platforms, hardware) and share this code, as long as the copyright notice and licence text come along. Fonts on the panel (Inter, Climate Crisis) are under the SIL Open Font Licence.
